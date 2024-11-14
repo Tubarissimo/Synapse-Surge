@@ -1,0 +1,12 @@
+/tmp
+/.tmp
+*.swp
+.DS_Store
+
+/build
+/dist
+
+.env
+
+data/user_data.json
+__pycache__/
