@@ -1,6 +1,7 @@
 import pygame
 import random
 from config import *
+from game import exibir_texto
 
 def gerar_pergunta(num_elementos=2):
     operacoes = ['+', '-', '*']
@@ -15,10 +16,6 @@ def gerar_pergunta(num_elementos=2):
 
     return expressao, resposta_correta
 
-def exibir_texto(texto, x, y, cor=BLACK):
-    superficie_texto = fonte_regular.render(texto, True, cor)
-    screen.blit(superficie_texto, (x, y))
-
 def main_rush():
     pontuacao = 0
     perguntas_respondidas = 0
@@ -29,7 +26,6 @@ def main_rush():
     inicio_tempo = pygame.time.get_ticks()  # Armazena o tempo inicial
     tempo_restante = 30  # Tempo de jogo em segundos
 
-    campo_texto_rect = pygame.Rect(50, 250, 400, 50)
     cursor_visivel = True
     contador_cursor = 0
 
@@ -39,16 +35,16 @@ def main_rush():
         tempo_restante = max(0, 30 - tempo_decorrido)
 
         screen.fill(LIGHT_GRAY)
-        exibir_texto(f'Tempo restante: {tempo_restante}s', 50, 50, PURPLE)
-        exibir_texto(f'Perguntas respondidas: {perguntas_respondidas}', 50, 100, PURPLE)
-        exibir_texto(pergunta, 50, 150)
+        exibir_texto(f'Tempo restante: {tempo_restante}s', WIDTH//2, 50, PURPLE)
+        exibir_texto(f'Perguntas respondidas: {perguntas_respondidas}', WIDTH//2, 100, PURPLE)
+        exibir_texto(pergunta, WIDTH//2, 150)
 
-        pygame.draw.rect(screen, WHITE, campo_texto_rect)
-        pygame.draw.rect(screen, GRAY, campo_texto_rect, 2)
-
+        # Renderiza a resposta do usuário e centraliza na tela
         superficie_resposta = fonte_regular.render(resposta_usuario, True, BLACK)
-        screen.blit(superficie_resposta, (campo_texto_rect.x + 5, campo_texto_rect.y + 5))
+        rect_resposta = superficie_resposta.get_rect(center=(WIDTH//2, 250))
+        screen.blit(superficie_resposta, rect_resposta.topleft)
 
+        # Lógica para o cursor piscando
         contador_cursor += 1
         if contador_cursor % 360 < 180:
             cursor_visivel = True
@@ -56,8 +52,8 @@ def main_rush():
             cursor_visivel = False
 
         if cursor_visivel:
-            cursor_x = campo_texto_rect.x + 5 + superficie_resposta.get_width()
-            pygame.draw.line(screen, BLACK, (cursor_x, campo_texto_rect.y + 5), (cursor_x, campo_texto_rect.y + 45), 2)
+            cursor_x = rect_resposta.right + 5 if resposta_usuario else WIDTH//2
+            pygame.draw.line(screen, BLACK, (cursor_x, rect_resposta.top), (cursor_x, rect_resposta.bottom), 2)
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -88,20 +84,10 @@ def main_rush():
 
         if tempo_restante == 0:
             rodando = False
-        
+
         if exit_btn.draw(screen):
             return 'menu'
 
         pygame.display.flip()
 
-    screen.fill(LIGHT_GRAY)
-    exibir_texto(f'Jogo Finalizado!', 50, 50, PURPLE)
-    exibir_texto(f'Pontuação: {pontuacao}', 50, 150, BLACK)
-    exibir_texto(f'Perguntas respondidas: {perguntas_respondidas}', 50, 200, BLACK)
-    exibir_texto(f'Perguntas corretas: {pontuacao // num_elementos}', 50, 250, GREEN)
-    exibir_texto(f'Perguntas erradas: {perguntas_erradas}', 50, 300, RED)
-
-    pygame.display.flip()
-    pygame.time.wait(5000)
-
-    return 'menu'
+    return 'score', pontuacao, perguntas_respondidas, pontuacao // num_elementos, perguntas_erradas

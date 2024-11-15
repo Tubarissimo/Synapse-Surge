@@ -18,7 +18,8 @@ def gerar_pergunta(num_elementos=2):
 
 def exibir_texto(texto, x, y, cor=BLACK):
     superficie_texto = fonte_regular.render(texto, True, cor)
-    screen.blit(superficie_texto, (x, y))
+    rect_texto = superficie_texto.get_rect(center=(x, y))
+    screen.blit(superficie_texto, rect_texto.topleft)
 
 def main_game():
     # Carrega a fase atual do arquivo JSON

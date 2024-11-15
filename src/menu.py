@@ -4,11 +4,7 @@ from config import *
 def main_menu():
     running = True
     while running:
-        screen.fill(LIGHT_GRAY)
-
-        title_text = fonte_regular.render("Synapse Surge", True, BLACK)
-        title_rect = title_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 3))
-        screen.blit(title_text, title_rect)
+        screen.blit(tela_menu_img, (0, 0))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -21,7 +17,7 @@ def main_menu():
             return 'quit'
 
         if normal_mode_btn.draw(screen):
-            return 'tela_vitoria'
+            return 'tela_derrota'
 
         if rush_mode_btn.draw(screen):
             return 'rush'
