@@ -17,7 +17,7 @@ def main_menu():
             return 'quit'
 
         if normal_mode_btn.draw(screen):
-            return 'tela_derrota'
+            return 'game'
 
         if rush_mode_btn.draw(screen):
             return 'rush'

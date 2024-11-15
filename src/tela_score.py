@@ -4,17 +4,17 @@ from config import *
 from game import exibir_texto
 
 def main_score(pontuacao, perguntas_respondidas, perguntas_corretas, perguntas_erradas):
-    menu_btn = Button(menu_btn_img, (315, 57), 523, 553)
-    restart_btn = Button(restart_btn_img, (315, 57), 523, 485)
+    menu_btn = Button(menu_btn_img, (315, 57), 336, 663)
+    restart_btn = Button(restart_btn_img, (315, 57), 715, 663)
 
     running = True
     while running:
         screen.blit(tela_score_img, (0, 0))
 
-        exibir_texto(f'Pontuação: {pontuacao}', 50, 150, BLACK)
-        exibir_texto(f'Perguntas respondidas: {perguntas_respondidas}', 50, 200, BLACK)
-        exibir_texto(f'Perguntas corretas: {perguntas_corretas}', 50, 250, GREEN)
-        exibir_texto(f'Perguntas erradas: {perguntas_erradas}', 50, 300, RED)
+        exibir_texto(f'{pontuacao}', 270, 500, BLACK)
+        exibir_texto(f'Feitas: {perguntas_respondidas}', WIDTH//2, 500, BLACK)
+        exibir_texto(f'Corretas: {perguntas_corretas}', WIDTH - 270, 500, GREEN)
+        exibir_texto(f'Erradas: {perguntas_erradas}', WIDTH - 270, 550, RED)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

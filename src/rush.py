@@ -24,7 +24,7 @@ def main_rush():
     pergunta, resposta_correta = gerar_pergunta(num_elementos)
     resposta_usuario = ''
     inicio_tempo = pygame.time.get_ticks()  # Armazena o tempo inicial
-    tempo_restante = 30  # Tempo de jogo em segundos
+    tempo_restante = 3  # Tempo de jogo em segundos
 
     cursor_visivel = True
     contador_cursor = 0
@@ -32,16 +32,16 @@ def main_rush():
     rodando = True
     while rodando:
         tempo_decorrido = (pygame.time.get_ticks() - inicio_tempo) // 1000
-        tempo_restante = max(0, 30 - tempo_decorrido)
+        tempo_restante = max(0, 3 - tempo_decorrido)
 
-        screen.fill(LIGHT_GRAY)
-        exibir_texto(f'Tempo restante: {tempo_restante}s', WIDTH//2, 50, PURPLE)
-        exibir_texto(f'Perguntas respondidas: {perguntas_respondidas}', WIDTH//2, 100, PURPLE)
-        exibir_texto(pergunta, WIDTH//2, 150)
+        screen.blit(tela_rush_mode_img, (0, 0))
+        exibir_texto(f'{tempo_restante}s', 270, 320, PURPLE)
+        exibir_texto(pergunta, WIDTH//2, 320)
+        exibir_texto(f'Feitas: {perguntas_respondidas}', WIDTH - 270, 320, PURPLE)
 
         # Renderiza a resposta do usuário e centraliza na tela
         superficie_resposta = fonte_regular.render(resposta_usuario, True, BLACK)
-        rect_resposta = superficie_resposta.get_rect(center=(WIDTH//2, 250))
+        rect_resposta = superficie_resposta.get_rect(center=(WIDTH//2, 550))
         screen.blit(superficie_resposta, rect_resposta.topleft)
 
         # Lógica para o cursor piscando
@@ -83,11 +83,12 @@ def main_rush():
                         resposta_usuario += evento.unicode
 
         if tempo_restante == 0:
-            rodando = False
+            rodando = False  # Sai do loop e vai para a tela de pontuação
 
         if exit_btn.draw(screen):
             return 'menu'
 
         pygame.display.flip()
 
-    return 'score', pontuacao, perguntas_respondidas, pontuacao // num_elementos, perguntas_erradas
+    # Retorna os dados necessários para a função `main_score`
+    return 'score', (pontuacao, perguntas_respondidas, pontuacao // num_elementos, perguntas_erradas)

@@ -18,7 +18,9 @@ def main():
         if estado == 'menu':
             estado = main_menu()
         elif estado == 'rush':
-            estado = main_rush()
+            resultado = main_rush()
+            if isinstance(resultado, tuple) and resultado[0] == 'score':
+                estado, dados_jogo = resultado
         elif estado == 'game': 
             estado = main_game()
         elif estado == 'tela_vitoria':
@@ -27,7 +29,7 @@ def main():
             estado = main_derrota()
         elif estado == 'reward':
             estado = main_reward()
-        elif estado == 'score':
+        elif estado == 'score' and dados_jogo is not None:
             estado = main_score(*dados_jogo)
 
     pygame.quit()
