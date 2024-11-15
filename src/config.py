@@ -1,5 +1,6 @@
 import pygame
 from utils import *
+from classes import Button
 
 pygame.init()
 
@@ -16,17 +17,27 @@ GRAY = (169, 169, 169)
 GREEN = (76, 156, 0)
 RED = (204, 0, 0)
 
-# Fonte
-fonte = pygame.font.Font('assets/Fonte_braba.otf', 48)
+# Fontes
+fonte_light = pygame.font.Font('assets/fonts/NeueMachina-Light.otf', 48)
+fonte_regular = pygame.font.Font('assets/fonts/NeueMachina-Regular.otf', 48)
+fonte_ultrabold = pygame.font.Font('assets/fonts/NeueMachina-Ultrabold.otf', 48)
 
 # Carregamento de imagens dos botões
-exit_btn_img = pygame.image.load('assets/exit_btn.png')
-play_btn_img = pygame.image.load('assets/play_btn.png')
+exit_btn_img = pygame.image.load('assets/buttons/exit_btn.png')
+normal_mode_btn_img = pygame.image.load('assets/buttons/normal_mode_btn.png')
+rush_mode_btn_img = pygame.image.load('assets/buttons/rush_mode_btn.png')
+menu_btn_img = pygame.image.load('assets/buttons/menu_btn.png')
+proceed_btn_img = pygame.image.load('assets/buttons/proceed_btn.png')
+restart_btn_img = pygame.image.load('assets/buttons/restart_btn.png')
 
 # Criação dos botões
-from classes import Button
 exit_btn = Button(exit_btn_img, (50, 50), WIDTH - 50, 10)
-play_btn = Button(play_btn_img, (100, 100), WIDTH // 2 - 50, HEIGHT // 2 - 50)
+normal_mode_btn = Button(normal_mode_btn_img, (373, 57), WIDTH // 2 - (373/2), HEIGHT // 2 - (57/2))
+rush_mode_btn = Button(rush_mode_btn_img, (373, 57), WIDTH // 2 - (373/2), HEIGHT // 2 - (57/2) + 60)
 
-caminho = "data/user_data.json"
-initialize_user_json(caminho)
+# botoes renomear, menu e prosseguir cada um deve ser criado na sua própria tela
+
+# Backgrounds
+tela_vitoria_img = pygame.image.load('assets/images/tela_vitoria.png')
+
+initialize_user_json("data/user_data.json")

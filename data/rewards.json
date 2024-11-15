@@ -1,52 +1,12 @@
-[
-    {
-        "titulo": "O primeiro 'bug' de computador",
-        "conteudo": "Você sabia que o termo 'bug' para descrever um erro em um programa de computador tem origem em um inseto real? Em 1945, uma mariposa ficou presa em uma válvula do computador Harvard Mark II, causando um curto-circuito e interrompendoo.",
-        "fase": 1
-    },
-    {
-        "titulo": "A primeira programadora",
-        "conteudo": "Ada Lovelace é considerada a primeira programadora da história. No século XIX, ela trabalhou com Charles Babbage na máquina analítica, antecessora dos computadores modernos, e desenvolveu algoritmos para ela.",
-        "fase": 2
-    },
-    {
-        "titulo": "A internet surgiu da Guerra Fria",
-        "conteudo": "A internet teve suas origens em um projeto militar dos Estados Unidos, a ARPANET, criada para conectar universidades e centros de pesquisa e garantir a comunicação em caso de um ataque.",
-        "fase": 3
-    },
-    {
-        "titulo": "A importância do backup",
-        "conteudo": "Fazer backup dos seus dados regularmente é essencial para evitar perdas em caso de falhas no computador ou dispositivos de armazenamento. A regra dos '3-2-1' é uma boa prática: ter 3 cópias dos seus dados, em 2 tipos de mídia diferentes, e guardar 1 cópia em um local remoto.",
-        "fase": 4
-    },
-    {
-        "titulo": "A Lei de Moore",
-        "conteudo": "Essa lei, proposta por Gordon Moore, co-fundador da Intel, prevê que o número de transistores em um circuito integrado dobra a cada dois anos, o que resulta em um aumento exponencial na capacidade de processamento dos computadores.",
-        "fase": 5
-    },
-    {
-        "titulo": "A diferença entre hardware e software",
-        "conteudo": "Hardware são as partes físicas de um computador, como o processador, memória RAM, disco rígido e placa de vídeo. Já o software são os programas que fazem o computador funcionar, como o sistema operacional e os aplicativos.",
-        "fase": 6
-    },
-    {
-        "titulo": "A importância da segurança cibernética",
-        "conteudo": "Com o aumento da dependência da tecnologia, a segurança cibernética se tornou fundamental. É importante tomar medidas como usar senhas fortes, evitar clicar em links suspeitos e manter seus softwares atualizados para proteger seus dados.",
-        "fase": 7
-    },
-    {
-        "titulo": "A nuvem não é um lugar",
-        "conteudo": "A nuvem é um termo usado para descrever serviços de computação que são fornecidos pela internet, como armazenamento de arquivos, processamento de dados e aplicativos. Na verdade, os dados são armazenados em servidores físicos localizados em data centers.",
-        "fase": 8
-    },
-    {
-        "titulo": "A história do código binário",
-        "conteudo": "O código binário é a base da computação, utilizando apenas os dígitos 0 e 1 para representar todas as informações. Essa forma de representação é ideal para os circuitos eletrônicos dos computadores, que trabalham com sinais elétricos ligados (1) e desligados (0).",
-        "fase": 9
-    },
-    {
-        "titulo": "A importância da programação",
-        "conteudo": "A programação é a habilidade de criar instruções para que um computador execute tarefas específicas. Saber programar abre portas para diversas áreas, como desenvolvimento de software, inteligência artificial e análise de dados.",
-        "fase": 10
-    }
-]
+{
+    "1" : "assets/images/fase1.png",
+    "2" : "assets/images/fase2.png",
+    "3" : "assets/images/fase3.png",
+    "4" : "assets/images/fase4.png",
+    "5" : "assets/images/fase5.png",
+    "6" : "assets/images/fase6.png",
+    "7" : "assets/images/fase7.png",
+    "8" : "assets/images/fase8.png",
+    "9" : "assets/images/fase9.png",
+    "10" : "assets/images/fase10.png"
+}

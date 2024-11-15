@@ -16,18 +16,16 @@ def gerar_pergunta(num_elementos=2):
     return expressao, resposta_correta
 
 def exibir_texto(texto, x, y, cor=BLACK):
-    superficie_texto = fonte.render(texto, True, cor)
+    superficie_texto = fonte_regular.render(texto, True, cor)
     screen.blit(superficie_texto, (x, y))
 
-def main_jogo():
+def main_rush():
     pontuacao = 0
     perguntas_respondidas = 0
     perguntas_erradas = 0
     num_elementos = 2  # Começa com 2 elementos na expressão
     pergunta, resposta_correta = gerar_pergunta(num_elementos)
     resposta_usuario = ''
-    mensagem = ''
-    cor_mensagem = BLACK
     inicio_tempo = pygame.time.get_ticks()  # Armazena o tempo inicial
     tempo_restante = 30  # Tempo de jogo em segundos
 
@@ -48,7 +46,7 @@ def main_jogo():
         pygame.draw.rect(screen, WHITE, campo_texto_rect)
         pygame.draw.rect(screen, GRAY, campo_texto_rect, 2)
 
-        superficie_resposta = fonte.render(resposta_usuario, True, BLACK)
+        superficie_resposta = fonte_regular.render(resposta_usuario, True, BLACK)
         screen.blit(superficie_resposta, (campo_texto_rect.x + 5, campo_texto_rect.y + 5))
 
         contador_cursor += 1
@@ -70,13 +68,9 @@ def main_jogo():
                         perguntas_respondidas += 1
                         if int(resposta_usuario) == resposta_correta:
                             pontuacao += num_elementos  # Ganha pontos equivalentes ao número de elementos
-                            mensagem = "Correto!!!"
-                            cor_mensagem = GREEN
                         else:
                             perguntas_erradas += 1
                             pontuacao -= num_elementos  # Perde pontos equivalentes ao número de elementos
-                            mensagem = f"Errado... A resposta correta era: {resposta_correta}."
-                            cor_mensagem = RED
                     resposta_usuario = ''
 
                     # A cada 5 perguntas, aumenta o número de elementos na expressão
@@ -92,13 +86,11 @@ def main_jogo():
                     elif evento.unicode.isdigit():
                         resposta_usuario += evento.unicode
 
-        exibir_texto(mensagem, 50, 350, cor_mensagem)
-
         if tempo_restante == 0:
             rodando = False
         
         if exit_btn.draw(screen):
-            return 'quit'
+            return 'menu'
 
         pygame.display.flip()
 

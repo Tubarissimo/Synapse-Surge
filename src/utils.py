@@ -17,5 +17,4 @@ def initialize_user_json(caminho_arquivo):
 
   if not os.path.isfile(caminho_arquivo):
     with open(caminho_arquivo, 'w') as f:
-      json.dump({"fase" : 0, "score" : 0}, f)
-
+      json.dump({"fase" : 1, "score" : 0}, f)

@@ -6,7 +6,7 @@ def main_menu():
     while running:
         screen.fill(LIGHT_GRAY)
 
-        title_text = fonte.render("Synapse Surge", True, BLACK)
+        title_text = fonte_regular.render("Synapse Surge", True, BLACK)
         title_rect = title_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 3))
         screen.blit(title_text, title_rect)
 
@@ -20,7 +20,10 @@ def main_menu():
         if exit_btn.draw(screen):
             return 'quit'
 
-        if play_btn.draw(screen):
-            return 'jogo'
+        if normal_mode_btn.draw(screen):
+            return 'tela_vitoria'
 
-        pygame.display.update()
+        if rush_mode_btn.draw(screen):
+            return 'rush'
+        
+        pygame.display.flip()
