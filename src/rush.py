@@ -24,7 +24,7 @@ def main_rush():
     pergunta, resposta_correta = gerar_pergunta(num_elementos)
     resposta_usuario = ''
     inicio_tempo = pygame.time.get_ticks()  # Armazena o tempo inicial
-    tempo_restante = 3  # Tempo de jogo em segundos
+    tempo_restante = 30  # Tempo de jogo em segundos
 
     cursor_visivel = True
     contador_cursor = 0
@@ -32,7 +32,7 @@ def main_rush():
     rodando = True
     while rodando:
         tempo_decorrido = (pygame.time.get_ticks() - inicio_tempo) // 1000
-        tempo_restante = max(0, 3 - tempo_decorrido)
+        tempo_restante = max(0, 30 - tempo_decorrido)
 
         screen.blit(tela_rush_mode_img, (0, 0))
         exibir_texto(f'{tempo_restante}s', 270, 320, PURPLE)
