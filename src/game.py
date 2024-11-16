@@ -36,7 +36,6 @@ def main_game():
     inicio_tempo = pygame.time.get_ticks()  # Armazena o tempo inicial
     tempo_restante = 30  # Tempo de jogo em segundos
 
-    campo_texto_rect = pygame.Rect(50, 250, 400, 50)
     cursor_visivel = True
     contador_cursor = 0
 
@@ -45,18 +44,24 @@ def main_game():
         tempo_decorrido = (pygame.time.get_ticks() - inicio_tempo) // 1000
         tempo_restante = max(0, 30 - tempo_decorrido)
 
-        screen.fill(LIGHT_GRAY)
-        exibir_texto(f'Tempo restante: {tempo_restante}s', 50, 50, PURPLE)
-        exibir_texto(f'Perguntas respondidas: {perguntas_respondidas}', 50, 100, PURPLE)
-        exibir_texto(f'Meta de pontos: {meta}', 50, 150, PURPLE)
-        exibir_texto(pergunta, 50, 200)
+        # Verifica se o tempo chegou a 0 e encerra o jogo com 'tela_derrota'
+        if tempo_restante == 0:
+            return 'tela_derrota'
 
-        pygame.draw.rect(screen, WHITE, campo_texto_rect)
-        pygame.draw.rect(screen, GRAY, campo_texto_rect, 2)
+        screen.blit(tela_normal_mode_img, (0, 0))
+        exibir_texto(f'{tempo_restante}s', 270, 320, PURPLE)
+        exibir_texto(pergunta, WIDTH // 2, 320)
+        exibir_texto(f'Feitas: {perguntas_respondidas}', WIDTH - 270, 320, PURPLE)
 
+        exibir_texto(f'{meta}', 575, 70, BLACK)
+        exibir_texto(f'{pontuacao}', 1025, 70, BLACK)
+
+        # Renderiza a resposta do usuário centralizada
         superficie_resposta = fonte_regular.render(resposta_usuario, True, BLACK)
-        screen.blit(superficie_resposta, (campo_texto_rect.x + 5, campo_texto_rect.y + 5))
+        rect_resposta = superficie_resposta.get_rect(center=(WIDTH // 2, 550))
+        screen.blit(superficie_resposta, rect_resposta.topleft)
 
+        # Lógica para o cursor piscando
         contador_cursor += 1
         if contador_cursor % 360 < 180:
             cursor_visivel = True
@@ -64,28 +69,29 @@ def main_game():
             cursor_visivel = False
 
         if cursor_visivel:
-            cursor_x = campo_texto_rect.x + 5 + superficie_resposta.get_width()
-            pygame.draw.line(screen, BLACK, (cursor_x, campo_texto_rect.y + 5), (cursor_x, campo_texto_rect.y + 45), 2)
+            cursor_x = rect_resposta.right + 5 if resposta_usuario else WIDTH // 2 - 10
+            pygame.draw.line(screen, BLACK, (cursor_x, rect_resposta.top), (cursor_x, rect_resposta.bottom), 2)
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 rodando = False
             elif evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_RETURN:
-                    if resposta_usuario.isdigit() or (resposta_usuario.startswith('-') and resposta_usuario[1:].isdigit()):
+                    # Verifica se há pelo menos um caractere numérico na resposta antes de enviar
+                    if any(char.isdigit() for char in resposta_usuario):
                         perguntas_respondidas += 1
                         if int(resposta_usuario) == resposta_correta:
                             pontuacao += num_elementos  # Ganha pontos equivalentes ao número de elementos
                         else:
                             perguntas_erradas += 1
                             pontuacao -= num_elementos  # Perde pontos equivalentes ao número de elementos
-                    resposta_usuario = ''
+                        resposta_usuario = ''
 
-                    # A cada 5 perguntas, aumenta o número de elementos na expressão
-                    if perguntas_respondidas % 5 == 0:
-                        num_elementos += 1
+                        # A cada 5 perguntas, aumenta o número de elementos na expressão
+                        if perguntas_respondidas % 5 == 0:
+                            num_elementos += 1
 
-                    pergunta, resposta_correta = gerar_pergunta(num_elementos)
+                        pergunta, resposta_correta = gerar_pergunta(num_elementos)
                 elif evento.key == pygame.K_BACKSPACE:
                     resposta_usuario = resposta_usuario[:-1]
                 elif evento.unicode.isdigit() or evento.unicode == '-':
@@ -94,28 +100,11 @@ def main_game():
                     elif evento.unicode.isdigit():
                         resposta_usuario += evento.unicode
 
-        # Verifica se a meta de pontos foi atingida
+        # Verifica se a meta de pontos foi atingida e encerra o jogo com 'tela_vitoria'
         if pontuacao >= meta:
-            screen.fill(LIGHT_GRAY)
-            exibir_texto('Parabéns! Você alcançou a meta!', 50, 50, GREEN)
-            pygame.display.flip()
-            pygame.time.wait(3000)
-            return 'tela_vitoria'  # Leva o jogador para outra tela
+            return 'tela_vitoria'
 
         if exit_btn.draw(screen):
             return 'menu'
 
         pygame.display.flip()
-
-    # Exibe as estatísticas finais
-    screen.fill(LIGHT_GRAY)
-    exibir_texto(f'Jogo Finalizado!', 50, 50, PURPLE)
-    exibir_texto(f'Pontuação: {pontuacao}', 50, 150, BLACK)
-    exibir_texto(f'Perguntas respondidas: {perguntas_respondidas}', 50, 200, BLACK)
-    exibir_texto(f'Perguntas corretas: {pontuacao // num_elementos}', 50, 250, GREEN)
-    exibir_texto(f'Perguntas erradas: {perguntas_erradas}', 50, 300, RED)
-
-    pygame.display.flip()
-    pygame.time.wait(5000)
-
-    return 'menu'
