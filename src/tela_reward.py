@@ -33,7 +33,6 @@ def main_reward():
                     running = False
                     return 'menu'
 
-        # Verifica se os botões são clicados
         if proceed_btn.draw(screen):
             running = False
             return 'menu'

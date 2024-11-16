@@ -19,7 +19,6 @@ def main_derrota():
                     running = False
                     return 'quit'
 
-        # Verifica se os botões são clicados
         if menu_btn.draw(screen):
             running = False
             return 'menu'

@@ -18,7 +18,6 @@ def main_vitoria():
                     running = False
                     return 'quit'
 
-        # Verifica se os botões são clicados
         if proceed_btn.draw(screen):
             running = False
             return 'reward'

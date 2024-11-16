@@ -35,7 +35,7 @@ exit_btn = Button(exit_btn_img, (50, 50), WIDTH - 50, 10)
 normal_mode_btn = Button(normal_mode_btn_img, (373, 57), 222, 550)
 rush_mode_btn = Button(rush_mode_btn_img, (373, 57), 222, 610)
 
-# botoes renomear, menu e prosseguir cada um deve ser criado na sua própria tela
+# para os botoes renomear, menu e prosseguir cada um deve ser criado na sua própria tela
 
 # Backgrounds
 tela_vitoria_img = pygame.image.load('assets/images/tela_vitoria.png')
@@ -45,4 +45,5 @@ tela_normal_mode_img = pygame.image.load('assets/images/tela_normal_mode.png')
 tela_rush_mode_img = pygame.image.load('assets/images/tela_rush_mode.png')
 tela_score_img = pygame.image.load('assets/images/tela_score.png')
 
+# gravar dados do usuário localmente
 initialize_user_json("data/user_data.json")

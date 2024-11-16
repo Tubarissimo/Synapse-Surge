@@ -12,7 +12,7 @@ def gerar_pergunta(num_elementos=2):
     for i in range(1, num_elementos):
         expressao += f" {operacoes_escolhidas[i - 1]} {elementos[i]}"
 
-    resposta_correta = eval(expressao)  # Calcula a resposta correta
+    resposta_correta = eval(expressao)
 
     return expressao, resposta_correta
 
@@ -22,19 +22,18 @@ def exibir_texto(texto, x, y, cor=BLACK):
     screen.blit(superficie_texto, rect_texto.topleft)
 
 def main_game():
-    # Carrega a fase atual do arquivo JSON
     user_data = from_json('data/user_data.json')
-    fase_atual = user_data.get("fase", 1)  # Pega a fase atual; se não existir, usa 1 como padrão
-    meta = 5 + (5 * fase_atual)  # Calcula a meta de pontos
+    fase_atual = user_data.get("fase", 1)
+    meta = 5 + (5 * fase_atual)
 
     pontuacao = 0
     perguntas_respondidas = 0
     perguntas_erradas = 0
-    num_elementos = 2  # Começa com 2 elementos na expressão
+    num_elementos = 2
     pergunta, resposta_correta = gerar_pergunta(num_elementos)
     resposta_usuario = ''
-    inicio_tempo = pygame.time.get_ticks()  # Armazena o tempo inicial
-    tempo_restante = 30  # Tempo de jogo em segundos
+    inicio_tempo = pygame.time.get_ticks()
+    tempo_restante = 30
 
     cursor_visivel = True
     contador_cursor = 0
@@ -44,7 +43,6 @@ def main_game():
         tempo_decorrido = (pygame.time.get_ticks() - inicio_tempo) // 1000
         tempo_restante = max(0, 30 - tempo_decorrido)
 
-        # Verifica se o tempo chegou a 0 e encerra o jogo com 'tela_derrota'
         if tempo_restante == 0:
             return 'tela_derrota'
 
@@ -56,12 +54,10 @@ def main_game():
         exibir_texto(f'{meta}', 575, 70, BLACK)
         exibir_texto(f'{pontuacao}', 1025, 70, BLACK)
 
-        # Renderiza a resposta do usuário centralizada
         superficie_resposta = fonte_regular.render(resposta_usuario, True, BLACK)
         rect_resposta = superficie_resposta.get_rect(center=(WIDTH // 2, 550))
         screen.blit(superficie_resposta, rect_resposta.topleft)
 
-        # Lógica para o cursor piscando
         contador_cursor += 1
         if contador_cursor % 360 < 180:
             cursor_visivel = True
@@ -77,17 +73,15 @@ def main_game():
                 rodando = False
             elif evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_RETURN:
-                    # Verifica se há pelo menos um caractere numérico na resposta antes de enviar
                     if any(char.isdigit() for char in resposta_usuario):
                         perguntas_respondidas += 1
                         if int(resposta_usuario) == resposta_correta:
-                            pontuacao += num_elementos  # Ganha pontos equivalentes ao número de elementos
+                            pontuacao += num_elementos
                         else:
                             perguntas_erradas += 1
-                            pontuacao -= num_elementos  # Perde pontos equivalentes ao número de elementos
+                            pontuacao -= num_elementos
                         resposta_usuario = ''
 
-                        # A cada 5 perguntas, aumenta o número de elementos na expressão
                         if perguntas_respondidas % 5 == 0:
                             num_elementos += 1
 
@@ -100,7 +94,6 @@ def main_game():
                     elif evento.unicode.isdigit():
                         resposta_usuario += evento.unicode
 
-        # Verifica se a meta de pontos foi atingida e encerra o jogo com 'tela_vitoria'
         if pontuacao >= meta:
             return 'tela_vitoria'
 
