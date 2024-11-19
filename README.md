@@ -54,4 +54,4 @@ Obs.: Em caso de dificuldades, verifique se as versões de Python e pygame corre
 
 ## Créditos
 
-Desenvolvido por Plácido Augustus de Oliveira Cordeiro.
+Desenvolvido por Plácido Augustus de Oliveira Cordeiro e Carlos Vinicius de Souza Cassimiro.
